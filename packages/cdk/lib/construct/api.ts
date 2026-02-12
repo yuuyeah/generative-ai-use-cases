@@ -1012,16 +1012,9 @@ export class Api extends Construct {
       'minutes-custom-prompts'
     );
 
-    // POST: /minutes-custom-prompts
+    // ANY: /minutes-custom-prompts (GET, POST)
     minutesCustomPromptsResource.addMethod(
-      'POST',
-      minutesCustomPromptIntegration,
-      commonAuthorizerProps
-    );
-
-    // GET: /minutes-custom-prompts
-    minutesCustomPromptsResource.addMethod(
-      'GET',
+      'ANY',
       minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
@@ -1029,16 +1022,9 @@ export class Api extends Construct {
     const minutesCustomPromptResource =
       minutesCustomPromptsResource.addResource('{minutesCustomPromptId}');
 
-    // PUT: /minutes-custom-prompts/{minutesCustomPromptId}
+    // ANY: /minutes-custom-prompts/{minutesCustomPromptId} (PUT, DELETE)
     minutesCustomPromptResource.addMethod(
-      'PUT',
-      minutesCustomPromptIntegration,
-      commonAuthorizerProps
-    );
-
-    // DELETE: /minutes-custom-prompts/{minutesCustomPromptId}
-    minutesCustomPromptResource.addMethod(
-      'DELETE',
+      'ANY',
       minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
