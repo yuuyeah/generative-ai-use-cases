@@ -4782,7 +4782,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Delete",
     },
-    "APIApiDeployment3A5021234533d7a90339971d4b652d34a0e5b458": {
+    "APIApiDeployment3A5021232a64ddd4fc1868aca846554c94db5386": {
       "DeletionPolicy": "Delete",
       "DependsOn": [
         "APIApiApi4XXDCF913C8",
@@ -4825,6 +4825,14 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         "APIApiimagegenerate70662BCD",
         "APIApiimageOPTIONSA57099DB",
         "APIApiimage6FBCA1DF",
+        "APIApiminutescustompromptsminutesCustomPromptIdDELETE148EDE68",
+        "APIApiminutescustompromptsminutesCustomPromptIdOPTIONS01CF3D87",
+        "APIApiminutescustompromptsminutesCustomPromptIdPUTD559730C",
+        "APIApiminutescustompromptsminutesCustomPromptIdB492A208",
+        "APIApiminutescustompromptsGET23EA4202",
+        "APIApiminutescustompromptsOPTIONS6E5FCA6F",
+        "APIApiminutescustompromptsPOSTEB6952B9",
+        "APIApiminutescustomprompts9718047D",
         "APIApiOPTIONSE134DC36",
         "APIApipredictOPTIONS9065A8D6",
         "APIApipredictPOST376D7D2E",
@@ -4944,7 +4952,7 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "APIApiDeployment3A5021234533d7a90339971d4b652d34a0e5b458",
+          "Ref": "APIApiDeployment3A5021232a64ddd4fc1868aca846554c94db5386",
         },
         "RestApiId": {
           "Ref": "APIApiFFA96F67",
@@ -7217,6 +7225,549 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         },
       },
       "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustomprompts9718047D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "APIApiFFA96F67",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "minutes-custom-prompts",
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsGET23EA4202": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "APIAuthorizer9DCC037B",
+        },
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "APIMinutesCustomPrompt39AA41FF",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "APIApiminutescustomprompts9718047D",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsGETApiPermissionGenerativeAiUseCasesStackAPIApi89219E17GETminutescustomprompts660CE20B": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/",
+              {
+                "Ref": "APIApiDeploymentStageapiCD55D117",
+              },
+              "/GET/minutes-custom-prompts",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsGETApiPermissionTestGenerativeAiUseCasesStackAPIApi89219E17GETminutescustompromptsC962214C": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/test-invoke-stage/GET/minutes-custom-prompts",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsOPTIONS6E5FCA6F": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "APIApiminutescustomprompts9718047D",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsPOSTApiPermissionGenerativeAiUseCasesStackAPIApi89219E17POSTminutescustompromptsF6CF0E9A": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/",
+              {
+                "Ref": "APIApiDeploymentStageapiCD55D117",
+              },
+              "/POST/minutes-custom-prompts",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsPOSTApiPermissionTestGenerativeAiUseCasesStackAPIApi89219E17POSTminutescustompromptsC7AC0E60": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/test-invoke-stage/POST/minutes-custom-prompts",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsPOSTEB6952B9": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "APIAuthorizer9DCC037B",
+        },
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "APIMinutesCustomPrompt39AA41FF",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "APIApiminutescustomprompts9718047D",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdB492A208": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ParentId": {
+          "Ref": "APIApiminutescustomprompts9718047D",
+        },
+        "PathPart": "{minutesCustomPromptId}",
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdDELETE148EDE68": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "APIAuthorizer9DCC037B",
+        },
+        "HttpMethod": "DELETE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "APIMinutesCustomPrompt39AA41FF",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "APIApiminutescustompromptsminutesCustomPromptIdB492A208",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdDELETEApiPermissionGenerativeAiUseCasesStackAPIApi89219E17DELETEminutescustompromptsminutesCustomPromptId1E7CCE82": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/",
+              {
+                "Ref": "APIApiDeploymentStageapiCD55D117",
+              },
+              "/DELETE/minutes-custom-prompts/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdDELETEApiPermissionTestGenerativeAiUseCasesStackAPIApi89219E17DELETEminutescustompromptsminutesCustomPromptId7956E645": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/test-invoke-stage/DELETE/minutes-custom-prompts/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdOPTIONS01CF3D87": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "APIApiminutescustompromptsminutesCustomPromptIdB492A208",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdPUTApiPermissionGenerativeAiUseCasesStackAPIApi89219E17PUTminutescustompromptsminutesCustomPromptIdEC0B97BE": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/",
+              {
+                "Ref": "APIApiDeploymentStageapiCD55D117",
+              },
+              "/PUT/minutes-custom-prompts/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdPUTApiPermissionTestGenerativeAiUseCasesStackAPIApi89219E17PUTminutescustompromptsminutesCustomPromptId788C5243": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPrompt39AA41FF",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:us-east-1:123456890123:",
+              {
+                "Ref": "APIApiFFA96F67",
+              },
+              "/test-invoke-stage/PUT/minutes-custom-prompts/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIApiminutescustompromptsminutesCustomPromptIdPUTD559730C": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "APIAuthorizer9DCC037B",
+        },
+        "HttpMethod": "PUT",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "APIMinutesCustomPrompt39AA41FF",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "APIApiminutescustompromptsminutesCustomPromptIdB492A208",
+        },
+        "RestApiId": {
+          "Ref": "APIApiFFA96F67",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
       "UpdateReplacePolicy": "Delete",
     },
     "APIApipredict6CA3C413": {
@@ -16836,6 +17387,157 @@ exports[`GenerativeAiUseCases matches the snapshot (closed network mode) 6`] = `
         "Roles": [
           {
             "Ref": "APIListVideoJobsServiceRole171468E3",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIMinutesCustomPrompt39AA41FF": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "APIMinutesCustomPromptServiceRoleDefaultPolicy48032C4F",
+        "APIMinutesCustomPromptServiceRoleCB586490",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456890123-us-east-1",
+          "S3Key": "HASH-REPLACED.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": {
+              "Ref": "DatabaseTableF104A135",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "APIMinutesCustomPromptServiceRoleCB586490",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs22.x",
+        "Timeout": 900,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "LambdaSeurityGroup14B5161A",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": [
+            {
+              "Fn::ImportValue": "ClosedNetworkStack:ExportsOutputRefClosedVpcisolatedSubnet1Subnet2EF6D3F36370B312",
+            },
+            {
+              "Fn::ImportValue": "ClosedNetworkStack:ExportsOutputRefClosedVpcisolatedSubnet2SubnetB169C8D3D828FC40",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIMinutesCustomPromptServiceRoleCB586490": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "APIMinutesCustomPromptServiceRoleDefaultPolicy48032C4F": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "DatabaseTableF104A135",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "DatabaseTableF104A135",
+                          "Arn",
+                        ],
+                      },
+                      "/index/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "APIMinutesCustomPromptServiceRoleDefaultPolicy48032C4F",
+        "Roles": [
+          {
+            "Ref": "APIMinutesCustomPromptServiceRoleCB586490",
           },
         ],
       },

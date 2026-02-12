@@ -791,12 +791,12 @@ export class Api extends Construct {
     );
     table.grantReadWriteData(deleteSystemContextFunction);
 
-    const listMinutesCustomPromptsFunction = new NodejsFunction(
+    const minutesCustomPromptFunction = new NodejsFunction(
       this,
-      'ListMinutesCustomPrompts',
+      'MinutesCustomPrompt',
       {
         runtime: LAMBDA_RUNTIME_NODEJS,
-        entry: './lambda/listMinutesCustomPrompts.ts',
+        entry: './lambda/minutesCustomPrompt.ts',
         timeout: Duration.minutes(15),
         environment: {
           TABLE_NAME: table.tableName,
@@ -805,55 +805,7 @@ export class Api extends Construct {
         securityGroups,
       }
     );
-    table.grantReadData(listMinutesCustomPromptsFunction);
-
-    const createMinutesCustomPromptFunction = new NodejsFunction(
-      this,
-      'CreateMinutesCustomPrompt',
-      {
-        runtime: LAMBDA_RUNTIME_NODEJS,
-        entry: './lambda/createMinutesCustomPrompt.ts',
-        timeout: Duration.minutes(15),
-        environment: {
-          TABLE_NAME: table.tableName,
-        },
-        vpc,
-        securityGroups,
-      }
-    );
-    table.grantWriteData(createMinutesCustomPromptFunction);
-
-    const updateMinutesCustomPromptFunction = new NodejsFunction(
-      this,
-      'UpdateMinutesCustomPrompt',
-      {
-        runtime: LAMBDA_RUNTIME_NODEJS,
-        entry: './lambda/updateMinutesCustomPrompt.ts',
-        timeout: Duration.minutes(15),
-        environment: {
-          TABLE_NAME: table.tableName,
-        },
-        vpc,
-        securityGroups,
-      }
-    );
-    table.grantReadWriteData(updateMinutesCustomPromptFunction);
-
-    const deleteMinutesCustomPromptFunction = new NodejsFunction(
-      this,
-      'DeleteMinutesCustomPrompt',
-      {
-        runtime: LAMBDA_RUNTIME_NODEJS,
-        entry: './lambda/deleteMinutesCustomPrompt.ts',
-        timeout: Duration.minutes(15),
-        environment: {
-          TABLE_NAME: table.tableName,
-        },
-        vpc,
-        securityGroups,
-      }
-    );
-    table.grantReadWriteData(deleteMinutesCustomPromptFunction);
+    table.grantReadWriteData(minutesCustomPromptFunction);
 
     const deleteFileFunction = new NodejsFunction(this, 'DeleteFileFunction', {
       runtime: LAMBDA_RUNTIME_NODEJS,
@@ -1052,6 +1004,10 @@ export class Api extends Construct {
       commonAuthorizerProps
     );
 
+    const minutesCustomPromptIntegration = new LambdaIntegration(
+      minutesCustomPromptFunction
+    );
+
     const minutesCustomPromptsResource = api.root.addResource(
       'minutes-custom-prompts'
     );
@@ -1059,14 +1015,14 @@ export class Api extends Construct {
     // POST: /minutes-custom-prompts
     minutesCustomPromptsResource.addMethod(
       'POST',
-      new LambdaIntegration(createMinutesCustomPromptFunction),
+      minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
 
     // GET: /minutes-custom-prompts
     minutesCustomPromptsResource.addMethod(
       'GET',
-      new LambdaIntegration(listMinutesCustomPromptsFunction),
+      minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
 
@@ -1076,14 +1032,14 @@ export class Api extends Construct {
     // PUT: /minutes-custom-prompts/{minutesCustomPromptId}
     minutesCustomPromptResource.addMethod(
       'PUT',
-      new LambdaIntegration(updateMinutesCustomPromptFunction),
+      minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
 
     // DELETE: /minutes-custom-prompts/{minutesCustomPromptId}
     minutesCustomPromptResource.addMethod(
       'DELETE',
-      new LambdaIntegration(deleteMinutesCustomPromptFunction),
+      minutesCustomPromptIntegration,
       commonAuthorizerProps
     );
 
