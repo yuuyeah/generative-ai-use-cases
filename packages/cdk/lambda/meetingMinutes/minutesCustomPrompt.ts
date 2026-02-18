@@ -1,10 +1,10 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { UpdateMinutesCustomPromptRequest } from 'generative-ai-use-cases';
+import { UpdateMeetingMinutesCustomPromptRequest } from 'generative-ai-use-cases';
 import {
-  listMinutesCustomPrompts,
-  createMinutesCustomPrompt,
-  updateMinutesCustomPrompt,
-  deleteMinutesCustomPrompt,
+  listMeetingMinutesCustomPrompts,
+  createMeetingMinutesCustomPrompt,
+  updateMeetingMinutesCustomPrompt,
+  deleteMeetingMinutesCustomPrompt,
 } from './repository';
 
 const headers = {
@@ -21,7 +21,7 @@ export const handler = async (
     const method = event.httpMethod;
 
     if (method === 'GET') {
-      const items = await listMinutesCustomPrompts(userId);
+      const items = await listMeetingMinutesCustomPrompts(userId);
       return {
         statusCode: 200,
         headers,
@@ -31,39 +31,39 @@ export const handler = async (
 
     if (method === 'POST') {
       const req = JSON.parse(event.body!);
-      const prompt = await createMinutesCustomPrompt(
+      const prompt = await createMeetingMinutesCustomPrompt(
         userId,
-        req.minutesCustomPromptTitle,
-        req.minutesCustomPromptBody
+        req.meetingMinutesCustomPromptTitle,
+        req.meetingMinutesCustomPromptBody
       );
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ minutesCustomPrompt: prompt }),
+        body: JSON.stringify({ meetingMinutesCustomPrompt: prompt }),
       };
     }
 
     if (method === 'PUT') {
-      const minutesCustomPromptId =
-        event.pathParameters!.minutesCustomPromptId!;
-      const req: UpdateMinutesCustomPromptRequest = JSON.parse(event.body!);
-      const prompt = await updateMinutesCustomPrompt(
+      const id = event.pathParameters!.id!;
+      const req: UpdateMeetingMinutesCustomPromptRequest = JSON.parse(
+        event.body!
+      );
+      const prompt = await updateMeetingMinutesCustomPrompt(
         userId,
-        minutesCustomPromptId,
-        req.title,
-        req.body
+        id,
+        req.meetingMinutesCustomPromptTitle,
+        req.meetingMinutesCustomPromptBody
       );
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ minutesCustomPrompt: prompt }),
+        body: JSON.stringify({ meetingMinutesCustomPrompt: prompt }),
       };
     }
 
     if (method === 'DELETE') {
-      const minutesCustomPromptId =
-        event.pathParameters!.minutesCustomPromptId!;
-      await deleteMinutesCustomPrompt(userId, minutesCustomPromptId);
+      const id = event.pathParameters!.id!;
+      await deleteMeetingMinutesCustomPrompt(userId, id);
       return {
         statusCode: 204,
         headers,

@@ -19,7 +19,7 @@ import {
 import { GenerateImageParams } from './image';
 import { GenerateVideoParams, VideoJob } from './video';
 import { ShareId, UserIdAndChatId } from './share';
-import { MinutesCustomPrompt } from './minutesCustomPrompt';
+import { MeetingMinutesCustomPrompt } from './meetingMinutesCustomPrompt';
 
 export type StreamingChunk = {
   text: string;
@@ -228,16 +228,16 @@ export type UploadFileRequest = {
   file: File;
 };
 
-export type CreateMinutesCustomPromptRequest = {
-  minutesCustomPromptTitle: string;
-  minutesCustomPromptBody: string;
+export type CreateMeetingMinutesCustomPromptRequest = {
+  meetingMinutesCustomPromptTitle: string;
+  meetingMinutesCustomPromptBody: string;
 };
 
-export type UpdateMinutesCustomPromptRequest = {
-  title: string;
-  body: string;
+export type UpdateMeetingMinutesCustomPromptRequest = {
+  meetingMinutesCustomPromptTitle: string;
+  meetingMinutesCustomPromptBody: string;
 };
 
-export type UpdateMinutesCustomPromptResponse = {
-  minutesCustomPrompt: MinutesCustomPrompt;
+export type UpdateMeetingMinutesCustomPromptResponse = {
+  meetingMinutesCustomPrompt: MeetingMinutesCustomPrompt;
 };

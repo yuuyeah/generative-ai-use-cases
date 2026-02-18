@@ -11,7 +11,7 @@ import Select from '../Select';
 import Switch from '../Switch';
 import Textarea from '../Textarea';
 import { MeetingMinutesParams, DiagramOption } from '../../prompts';
-import { MinutesCustomPrompt } from 'generative-ai-use-cases';
+import { MeetingMinutesCustomPrompt } from 'generative-ai-use-cases';
 import { decomposeId } from '../../utils/ChatUtils';
 import { IconType } from 'react-icons';
 
@@ -110,7 +110,7 @@ interface MeetingMinutesSettingsModalProps {
     diagramOptions?: DiagramOption[]
   ) => string;
   // Saved custom prompts
-  savedPrompts: MinutesCustomPrompt[] | undefined;
+  savedPrompts: MeetingMinutesCustomPrompt[] | undefined;
   onCreatePrompt: (title: string, body: string) => Promise<void>;
   onUpdatePrompt: (id: string, title: string, body: string) => Promise<void>;
   onDeletePrompt: (id: string) => Promise<void>;
@@ -163,7 +163,7 @@ const MeetingMinutesSettingsModal: React.FC<
     const promptId = minutesStyle.replace('savedPrompt:', '');
     return (
       savedPrompts.find((p) => {
-        const decomposed = decomposeId(p.minutesCustomPromptId);
+        const decomposed = decomposeId(p.meetingMinutesCustomPromptId);
         return decomposed === promptId;
       }) || null
     );
@@ -172,8 +172,8 @@ const MeetingMinutesSettingsModal: React.FC<
   // Initialize edit fields when a saved prompt is selected
   useEffect(() => {
     if (selectedSavedPrompt) {
-      setEditTitle(selectedSavedPrompt.minutesCustomPromptTitle);
-      setEditBody(selectedSavedPrompt.minutesCustomPromptBody);
+      setEditTitle(selectedSavedPrompt.meetingMinutesCustomPromptTitle);
+      setEditBody(selectedSavedPrompt.meetingMinutesCustomPromptBody);
     }
     setShowDeleteConfirm(false);
   }, [selectedSavedPrompt]);
@@ -225,8 +225,8 @@ const MeetingMinutesSettingsModal: React.FC<
     ];
 
     const savedOptions = (savedPrompts || []).map((p) => ({
-      value: `savedPrompt:${decomposeId(p.minutesCustomPromptId)}`,
-      label: `${t('meetingMinutes.saved_prompt_prefix')} ${p.minutesCustomPromptTitle}`,
+      value: `savedPrompt:${decomposeId(p.meetingMinutesCustomPromptId)}`,
+      label: `${t('meetingMinutes.saved_prompt_prefix')} ${p.meetingMinutesCustomPromptTitle}`,
     }));
 
     return [...builtinOptions, ...savedOptions];
@@ -249,7 +249,7 @@ const MeetingMinutesSettingsModal: React.FC<
     setIsUpdateLoading(true);
     try {
       await onUpdatePrompt(
-        selectedSavedPrompt.minutesCustomPromptId,
+        selectedSavedPrompt.meetingMinutesCustomPromptId,
         editTitle.trim(),
         editBody.trim()
       );
@@ -262,7 +262,7 @@ const MeetingMinutesSettingsModal: React.FC<
     if (!selectedSavedPrompt) return;
     setIsDeleteLoading(true);
     try {
-      await onDeletePrompt(selectedSavedPrompt.minutesCustomPromptId);
+      await onDeletePrompt(selectedSavedPrompt.meetingMinutesCustomPromptId);
       setShowDeleteConfirm(false);
     } finally {
       setIsDeleteLoading(false);
